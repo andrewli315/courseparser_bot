@@ -58,12 +58,13 @@ Every time `user` state is triggered to `advance` to another state, it will `go_
 
  * comment
      * Input: 'comment'
-         * Reply: "推薦課程...."
+        * Reply: "推薦課程...."
  * parse
-     * Input: "parse"
-         * Reply: "parsing complete"
+     * Input: 'parse'
+        * Reply: "parsing complete"
 * dummy
-
+    * Input: any other string
+        * Reply: "command: \ncomment\nparse"
 * temp
 
 * grade1
