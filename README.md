@@ -56,29 +56,31 @@ Every time `user` state is triggered to `advance` to another state, it will `go_
 
 * user
 
-    * comment
-        * Input: 'comment'
-            * Reply: "推薦課程...."
-    * parse
-        * Input: "parse"
-            * Reply: "parsing complete"
-    * temp
+ * comment
+     * Input: 'comment'
+         * Reply: "推薦課程...."
+ * parse
+     * Input: "parse"
+         * Reply: "parsing complete"
+* dummy
 
-        * grade1
-            * Input: "grade1"
-                * Reply: "result..."
-        * grade2
-            * Input: "grade2"
-                * Reply: "result..."
-        * grade3
-            * Input: "grade3"
-                * Reply: "result..."
-        * grade4
-            * Input: "grade4"
-                * Reply: "result..."
-        * dummy2
-            * Input: any other string
-                * Reply: "choose command:\ngrade1\ngrade2\ngrade3\ngrade4\n"
+* temp
+
+* grade1
+   * Input: "grade1"
+       * Reply: "result..."
+* grade2
+   * Input: "grade2"
+       * Reply: "result..."
+* grade3
+   * Input: "grade3"
+       * Reply: "result..."
+* grade4
+   * Input: "grade4"
+       * Reply: "result..."
+* dummy2
+   * Input: any other string
+       * Reply: "choose command:\ngrade1\ngrade2\ngrade3\ngrade4\n"
 
 ## Author
 利文韡
