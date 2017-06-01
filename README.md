@@ -55,19 +55,30 @@ The initial state is set to `user`.
 Every time `user` state is triggered to `advance` to another state, it will `go_back` to `user` state after the bot replies corresponding message.
 
 * user
-    * Input: "parse"
-        * Reply: "parsing complete"
-    * Input: "grade1"
-        * Reply: "result..."
-    * Input: "grade2"
-        * Reply: "result..."
-    * Input: "grade3"
-        * Reply: "result..."
-    * Input: "grade4"
-        * Reply: "result..."
-    * Input: any other string
-        * Reply: "please input 'parse' first" 
-        * Reply: "then choose command:\ngrade1\ngrade2\ngrade3\ngrade4\n"
+
+    * comment
+        * Input: 'comment'
+            * Reply: "推薦課程...."
+    * parse
+        * Input: "parse"
+            * Reply: "parsing complete"
+    * temp
+
+        * grade1
+            * Input: "grade1"
+                * Reply: "result..."
+        * grade2
+            * Input: "grade2"
+                * Reply: "result..."
+        * grade3
+            * Input: "grade3"
+                * Reply: "result..."
+        * grade4
+            * Input: "grade4"
+                * Reply: "result..."
+        * dummy2
+            * Input: any other string
+                * Reply: "choose command:\ngrade1\ngrade2\ngrade3\ngrade4\n"
 
 ## Author
 利文韡
