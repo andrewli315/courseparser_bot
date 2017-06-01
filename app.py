@@ -16,6 +16,10 @@ machine = TocMachine(
         'user',
         'parse',
         'dummy',
+        'comment',
+        'temp',
+        'dummy2',
+        'error',
         'grade1',
         'grade2',
         'grade3',
@@ -24,25 +28,25 @@ machine = TocMachine(
     transitions=[
         {
             'trigger': 'advance',
-            'source': 'user',
+            'source': 'temp',
             'dest': 'grade1',
             'conditions': 'is_going_to_grade1'
         },
         {
             'trigger': 'advance',
-            'source': 'user',
+            'source': 'temp',
             'dest': 'grade2',
             'conditions': 'is_going_to_grade2'
         },
         {
             'trigger': 'advance',
-            'source': 'user',
+            'source': 'temp',
             'dest': 'grade3',
             'conditions': 'is_going_to_grade3'
         },
         {
             'trigger': 'advance',
-            'source': 'user',
+            'source': 'temp',
             'dest': 'grade4',
             'conditions': 'is_going_to_grade4'
         },
@@ -55,18 +59,49 @@ machine = TocMachine(
         {
             'trigger': 'advance',
             'source': 'user',
+            'dest': 'comment',
+            'conditions': 'is_going_to_comment'
+        },
+        {
+            'trigger': 'advance',
+            'source': 'user',
             'dest': 'parse',
             'conditions': 'parseweb'
         },
         {
+            'trigger': 'advance',
+            'source': 'parse',
+            'dest': 'error',
+            'conditions': 'is_going_to_error'
+        },
+        {
+            'trigger': 'advance',
+            'source': 'temp',
+            'dest': 'dummy2',
+            'conditions': 'is_going_to_dummy2'
+        },
+        {
             'trigger': 'go_back',
-            'source': [
+            'source': 'parse',
+            'dest': 'temp',
+        },
+        {
+            'trigger':'go_back',
+            'source' :[
                 'grade1',
                 'grade2',
                 'grade3',
                 'grade4',
-                'parse',
-                'dummy'
+                'dummy2'
+            ],
+            'dest' : 'temp'
+        },
+        {
+            'trigger': 'go_back',
+            'source': [
+                'dummy',
+                'error',
+                'comment'
             ],
             'dest': 'user'
         }

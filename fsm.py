@@ -33,12 +33,20 @@ class TocMachine(GraphMachine):
     def is_going_to_grade4(self, update):
         text = update.message.text
         return text.lower() == 'grade4'
-    def is_going_to_dummy(self, update,):
+    def is_going_to_dummy(self, update):
         text = update.message.text
         return text.lower() != 'grade1' and text.lower()!='grade2' and text.lower() != 'grade3' and text.lower() != 'grade4' and text.lower() != 'comment' and text.lower() != 'parse'
     def parseweb(self, update):
         text = update.message.text
         return text.lower() == 'parse'
+    def is_going_to_comment(self, update):
+        text = update.message.text
+        return text.lower() == 'comment'
+    def is_going_to_dummy2(self,update):
+        text = update.message.text
+        return text.lower() != 'grade1' and text.lower()!='grade2' and text.lower() != 'grade3' and text.lower() != 'grade4' and text.lower() != 'comment' and text.lower() != 'parse'
+    def is_going_to_error(self, update):
+        return True
 
     def on_enter_grade1(self, update):
         str=''
@@ -77,10 +85,15 @@ class TocMachine(GraphMachine):
         self.go_back(update)
 
     def on_enter_dummy(self, update):
-        update.message.reply_text("please input \'parse \' first")
-        update.message.reply_text("then choose command:\ngrade1\ngrade2\ngrade3\ngrade4\n")
+        update.message.reply_text("command:\n parse\n comment")
         self.go_back(update)
-
+    def on_enter_comment(self,update):
+        update.message.reply_text("推薦課程")
+        update.message.reply_text("資訊安全：課程內容多為密碼學之基礎介紹與教學")
+        update.message.reply_text("電腦網路通訊：從最基礎的osi網路架構為教學內容，實作作業為socket programming")
+        update.message.reply_text("java程式設計：認真教學，深入淺出")
+        update.message.reply_text("競技程式設計：訓練程式能力的好課")
+        self.go_back(update)
     def on_enter_parse(self, update):
         
         self.data = []
@@ -95,17 +108,16 @@ class TocMachine(GraphMachine):
             page = urllib.request.urlopen(url,timeout=10)
             mystr = page.read().decode("utf8")
         except URLError as error:
-            update.message.reply_text("FAILED TO CONNECT WEB")
-            print("error: ")
-            print(error)
-            self.go_back(update)
-        except HTTPError as error:
-            update.message.reply_text("FAILED TO CONNECT WEB")
-            print("error: ")
-            print(error)
-            self.go_back(update)
-        else:
             
+            print("error: ")
+            print(error)
+            self.advance(update)
+        except HTTPError as error:
+            
+            print("error: ")
+            print(error)
+            self.advance(update)
+        else:
             parser.feed(mystr)
             flag = 0
             grade = 0
@@ -135,6 +147,12 @@ class TocMachine(GraphMachine):
                     continue
             update.message.reply_text("parsing complete")
             self.go_back(update)
+    def on_enter_error(self,update):
+        update.message.reply_text("FAILED TO CONNECT WEB")
+        self.go_back(update)
+    def on_enter_dummy2(self, update):
+        update.message.reply_text("choose command:\ngrade1\ngrade2\ngrade3\ngrade4\n")
+        self.go_back(update)
 
     def on_exit_grade1(self, update):
         print('Leaving grade1')
@@ -148,3 +166,7 @@ class TocMachine(GraphMachine):
         print('Leaving dummy')
     def on_exit_parse(self, update):
         print('Leaving parse')
+    def on_exit_error(self,update):
+        print('Leaving error')
+    def on_exit_comment(self,update):
+        print('Leaving comment')
